@@ -8,6 +8,8 @@
     require("babelify/node_modules/babel-core/register")
     acorn = require("../src")
     require("../src/loose")
+    require("./tests-jsx.js");
+    require("../plugin/jsx.js");
   } else {
     driver = window;
     acorn = window.acorn;
