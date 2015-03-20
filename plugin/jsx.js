@@ -1,6 +1,6 @@
 (function(root, mod) {
-  if (typeof exports == "object" && typeof module == "object") return mod(require("../acorn")); // CommonJS
-  if (typeof define == "function" && define.amd) return define(["../acorn"], mod); // AMD
+  if (typeof exports == "object" && typeof module == "object") return mod(require("../src")); // CommonJS
+  if (typeof define == "function" && define.amd) return define(["../src"], mod); // AMD
   mod(root.acorn); // Plain browser env
 })(this, function(acorn) {
   "use strict";
@@ -442,7 +442,7 @@
   // Parse namespaced identifier.
 
   pp.jsx_parseNamespacedName = function() {
-    var start = this.currentPos();
+    var start = this.markPosition();
     var name = this.jsx_parseIdentifier();
     if (!this.eat(tt.colon)) return name;
     var node = this.startNodeAt(start);
@@ -455,7 +455,7 @@
   // or single identifier.
 
   pp.jsx_parseElementName = function() {
-    var start = this.currentPos();
+    var start = this.markPosition();
     var node = this.jsx_parseNamespacedName();
     while (this.eat(tt.dot)) {
       var newNode = this.startNodeAt(start);
@@ -564,7 +564,7 @@
       contents: for (;;) {
         switch (this.type) {
         case tt.jsxTagStart:
-          start = this.currentPos();
+          start = this.markPosition();
           this.next();
           if (this.eat(tt.slash)) {
             closingElement = this.jsx_parseClosingElementAt(start);
@@ -600,7 +600,7 @@
   // Parses entire JSX element from current position.
 
   pp.jsx_parseElement = function() {
-    var start = this.currentPos();
+    var start = this.markPosition();
     this.next();
     return this.jsx_parseElementAt(start);
   };
