@@ -21205,6 +21205,119 @@ test("with (x) foo = bar;", {
   }
 });
 
+// Test that innocuous string that evaluates to `use strict` is not promoted to
+// Use Strict directive.
+test("'use\\x20strict'; with (x) foo = bar;", {
+  "start": 0,
+  "body": [
+    {
+      "start": 0,
+      "expression": {
+        "start": 0,
+        "value": "use strict",
+        "raw": "'use\\x20strict'",
+        "type": "Literal",
+        "end": 15
+      },
+      "type": "ExpressionStatement",
+      "end": 16
+    },
+    {
+      "start": 17,
+      "object": {
+        "start": 23,
+        "name": "x",
+        "type": "Identifier",
+        "end": 24
+      },
+      "body": {
+        "start": 26,
+        "expression": {
+          "start": 26,
+          "operator": "=",
+          "left": {
+            "start": 26,
+            "name": "foo",
+            "type": "Identifier",
+            "end": 29
+          },
+          "right": {
+            "start": 32,
+            "name": "bar",
+            "type": "Identifier",
+            "end": 35
+          },
+          "type": "AssignmentExpression",
+          "end": 35
+        },
+        "type": "ExpressionStatement",
+        "end": 36
+      },
+      "type": "WithStatement",
+      "end": 36
+    }
+  ],
+  "type": "Program",
+  "end": 36
+});
+
+
+// Test that innocuous string that evaluates to `use strict` is not promoted to
+// Use Strict directive.
+test('"use\\x20strict"; with (x) foo = bar;', {
+  "start": 0,
+  "body": [
+    {
+      "start": 0,
+      "expression": {
+        "start": 0,
+        "value": "use strict",
+        "raw": "\"use\\x20strict\"",
+        "type": "Literal",
+        "end": 15
+      },
+      "type": "ExpressionStatement",
+      "end": 16
+    },
+    {
+      "start": 17,
+      "object": {
+        "start": 23,
+        "name": "x",
+        "type": "Identifier",
+        "end": 24
+      },
+      "body": {
+        "start": 26,
+        "expression": {
+          "start": 26,
+          "operator": "=",
+          "left": {
+            "start": 26,
+            "name": "foo",
+            "type": "Identifier",
+            "end": 29
+          },
+          "right": {
+            "start": 32,
+            "name": "bar",
+            "type": "Identifier",
+            "end": 35
+          },
+          "type": "AssignmentExpression",
+          "end": 35
+        },
+        "type": "ExpressionStatement",
+        "end": 36
+      },
+      "type": "WithStatement",
+      "end": 36
+    }
+  ],
+  "type": "Program",
+  "end": 36
+});
+
 test("with (x) { foo = bar }", {
   type: "Program",
   body: [
